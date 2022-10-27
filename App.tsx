@@ -10,26 +10,14 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Text, useColorScheme, View} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
+import Router from './src/navigation/router';
+import {navigationRef} from './src/navigation/RootNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
-        <View>
-          <Text>Test apk</Text>
-        </View>
-      </SafeAreaView>
+    <NavigationContainer ref={navigationRef}>
+      <Router />
     </NavigationContainer>
   );
 };
