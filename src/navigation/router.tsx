@@ -5,10 +5,22 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ActivityIndicator, Text} from 'react-native';
 import {LoginScreen} from '../screen/LoginScreen';
 import * as RootNavigation from '../navigation/RootNavigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SamplePage = () => {
   console.log('sample');
-  return <Text numberOfLines={5}>Hello Google</Text>;
+  const [tokenValue, setTokenValue] = React.useState('');
+
+  const getToken = async () => {
+    const value = (await AsyncStorage.getItem('token')) as string;
+    setTokenValue(value);
+  };
+
+  React.useEffect(() => {
+    getToken();
+  }, []);
+
+  return <Text numberOfLines={5}>{tokenValue}</Text>;
 };
 
 const Router = () => {

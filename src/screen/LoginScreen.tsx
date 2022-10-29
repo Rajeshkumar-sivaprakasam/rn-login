@@ -14,6 +14,7 @@ import Separator from '../utils/Separator';
 import loginStyle from './LoginStyle';
 import * as RootNavigation from '../navigation/RootNavigation';
 import config from '../utils/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginScreen = () => {
   const [userName, setUserName] = useState('');
@@ -74,6 +75,7 @@ export const LoginScreen = () => {
       });
       if (res.data.success === true) {
         setLoading(false);
+        if (res.data.token) await AsyncStorage.setItem('token', res.data.token);
         //token need to add in redux
         RootNavigation.navigate('Sample');
       }
