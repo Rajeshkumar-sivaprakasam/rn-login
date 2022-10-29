@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import Separator from '../utils/Separator';
 import loginStyle from './LoginStyle';
@@ -86,6 +87,7 @@ export const LoginScreen = () => {
   return (
     <View style={loginStyle.mainViewStyle}>
       <View style={loginStyle.versionStyle}>
+        <Image source={require(`../../src/assert/ic_launcher_round.png`)} />
         <Text style={loginStyle.headerStyle}>BiClone</Text>
       </View>
       <View style={loginStyle.viewStyle}>
