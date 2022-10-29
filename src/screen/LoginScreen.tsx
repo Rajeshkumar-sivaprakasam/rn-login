@@ -72,7 +72,7 @@ export const LoginScreen = () => {
         userName: userName,
         password: userPassword,
       });
-      if (res.success === true) {
+      if (res.data.success === true) {
         setLoading(false);
         //token need to add in redux
         RootNavigation.navigate('Sample');
@@ -81,8 +81,6 @@ export const LoginScreen = () => {
       setLoading(false);
       setErrortext(JSON.stringify(e));
     }
-
-    console.log('res', res.data);
   };
   return (
     <View style={loginStyle.mainViewStyle}>
@@ -117,7 +115,7 @@ export const LoginScreen = () => {
           value={userPassword}
         />
       </View>
-      {errortext != '' ? (
+      {errortext !== '' ? (
         <Text style={loginStyle.errorTextStyle}>{errortext}</Text>
       ) : null}
       <TouchableOpacity
