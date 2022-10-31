@@ -60,6 +60,22 @@ const styles = StyleSheet.create({
   versionStyle: {
     alignItems: 'center',
   },
+
+  //watch styles
+  scrollViewStyle: {
+    backgroundColor: '#ffffff',
+    felx: 1,
+    lexDirection: 'column',
+  },
+  wacthViewStyle: {
+    alignItems: 'center',
+    marginVertical: 40,
+    marginHorizontal: 10,
+    backgroundColor: '#74b357',
+    paddingVertical: 10,
+    borderRadius: 50,
+  },
+  textStyle: {fontSize: 40, fontWeight: 'bold', color: '#002222'},
 });
 
 export default styles;

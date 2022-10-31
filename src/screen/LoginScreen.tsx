@@ -23,7 +23,6 @@ export const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    console.log('helleoo', userName, ' pwd', userPassword);
     setErrortext('');
     setLoading(true);
     //username check
@@ -76,8 +75,7 @@ export const LoginScreen = () => {
       if (res.data.success === true) {
         setLoading(false);
         if (res.data.token) await AsyncStorage.setItem('token', res.data.token);
-        //token need to add in redux
-        RootNavigation.navigate('Sample');
+        RootNavigation.navigate('Watch');
       }
     } catch (e) {
       setLoading(false);

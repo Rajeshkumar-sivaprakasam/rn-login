@@ -2,7 +2,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 const Separator = () => {
-  console.log('sep');
   return <View style={styles.separator} />;
 };
 

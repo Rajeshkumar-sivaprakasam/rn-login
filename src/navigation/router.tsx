@@ -6,9 +6,9 @@ import {ActivityIndicator, Text} from 'react-native';
 import {LoginScreen} from '../screen/LoginScreen';
 import * as RootNavigation from '../navigation/RootNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {WatchScreen} from '../screen/WatchScreen';
 
 const SamplePage = () => {
-  console.log('sample');
   const [tokenValue, setTokenValue] = React.useState('');
 
   const getToken = async () => {
@@ -28,7 +28,6 @@ const Router = () => {
   const [showLoading, setShowLoading] = React.useState(true);
   const [initialState, setInitialState] = React.useState<string>('');
 
-  console.log('Hey router');
   React.useEffect(() => {
     setInitialState('Login');
     // RootNavigation.navigate('Sample');
@@ -46,7 +45,11 @@ const Router = () => {
         component={SamplePage}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} /> */}
+      <Stack.Screen
+        name="Watch"
+        component={WatchScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
