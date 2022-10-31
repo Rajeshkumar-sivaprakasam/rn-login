@@ -3,6 +3,8 @@
   "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
   "compilerOptions": {
     /* Completeness */
+    "noImplicitAny":false, 
+    "strictNullChecks":true, 
     "lib": ["es2015","dom"],        //adding dom to ts compiler
     "skipLibCheck": true           /* Skip type checking all .d.ts files. */
   },

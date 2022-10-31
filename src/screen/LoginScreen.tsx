@@ -13,18 +13,16 @@ import {
 import Separator from '../utils/Separator';
 import loginStyle from './LoginStyle';
 import * as RootNavigation from '../navigation/RootNavigation';
-import config from '../utils/config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {LoginService} from '../api-service/login-service';
+import {useSnapshot} from 'valtio';
+import state from '../store';
 
 export const LoginScreen = () => {
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [errortext, setErrortext] = useState('');
-  const [loading, setLoading] = useState(false);
+  const {isLoading, error} = useSnapshot(state);
 
   const handleSubmit = async () => {
-    setErrortext('');
-    setLoading(true);
     //username check
     if (!userName) {
       Alert.alert(
@@ -41,7 +39,6 @@ export const LoginScreen = () => {
           cancelable: true,
         },
       );
-      setLoading(false);
       return;
     }
     //password check
@@ -60,26 +57,18 @@ export const LoginScreen = () => {
           cancelable: true,
         },
       );
-      setLoading(false);
       return;
     }
 
-    let res;
-
     //api call
-    try {
-      res = await axios.post(`${config.api.baseURL}/authentication/signin`, {
-        userName: userName,
-        password: userPassword,
-      });
-      if (res.data.success === true) {
-        setLoading(false);
-        if (res.data.token) await AsyncStorage.setItem('token', res.data.token);
-        RootNavigation.navigate('Watch');
-      }
-    } catch (e) {
-      setLoading(false);
-      setErrortext(JSON.stringify(e));
+
+    const res = await LoginService.signin({
+      username: userName,
+      password: userPassword,
+    });
+
+    if (res.success === true) {
+      RootNavigation.navigate('Watch');
     }
   };
   return (
@@ -115,14 +104,14 @@ export const LoginScreen = () => {
           value={userPassword}
         />
       </View>
-      {errortext !== '' ? (
-        <Text style={loginStyle.errorTextStyle}>{errortext}</Text>
+      {error !== '' ? (
+        <Text style={loginStyle.errorTextStyle}>{error}</Text>
       ) : null}
       <TouchableOpacity
         style={loginStyle.buttonStyle}
         activeOpacity={0.5}
         onPress={handleSubmit}>
-        {loading ? (
+        {isLoading ? (
           <ActivityIndicator animating size="large" color="#ffffff" />
         ) : (
           <Text style={loginStyle.buttonTextStyle}>LOGIN</Text>

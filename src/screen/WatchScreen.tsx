@@ -12,10 +12,10 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import config from '../utils/config';
 import {renderFlatList} from '../utils/renderFlatList';
 import loginStyle from './LoginStyle';
 import base64 from 'react-native-base64';
+import {WatchService} from '../api-service/watch-service';
 
 export const WatchScreen = () => {
   const [watchData, setWatchData] = useState([]);
@@ -39,10 +39,8 @@ export const WatchScreen = () => {
       // Authorization: `Basic ${base64Token}`,
     };
 
-    const res = await axios.get(`${config.api.baseURL}/myaccount/watches`, {
-      headers,
-    });
-    setWatchData(res.data.response.lots);
+    const res = await WatchService.getall({headers});
+    setWatchData(res.response.lots);
   };
   React.useEffect(() => {
     convertToken();
