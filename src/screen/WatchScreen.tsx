@@ -15,6 +15,7 @@ import {
 import config from '../utils/config';
 import {renderFlatList} from '../utils/renderFlatList';
 import loginStyle from './LoginStyle';
+import base64 from 'react-native-base64';
 
 export const WatchScreen = () => {
   const [watchData, setWatchData] = useState([]);
@@ -23,15 +24,19 @@ export const WatchScreen = () => {
   const convertToken = async () => {
     const temp = await AsyncStorage.getItem('Token');
     if (temp) {
-      console.log('dsasdasddsa', window.btoa(temp));
-      setBase64Token(window.btoa(temp));
+      console.log('dsasdasddsa', base64.encode(temp));
+      // base64.encode(temp);
+      // console.log('dsasdasddsa', window.btoa(temp));
+      // setBase64Token(window.btoa(temp));
+      setBase64Token(base64.encode(temp));
     }
   };
 
   const getWatch = async () => {
     // GET request using axios with set headers
     const headers = {
-      Authorization: 'Basic NzNiNGE3NmI2YTU3ZWQxMWE3NmUwMDE1NWQ0MjYxNGQ=',
+      Authorization: `Basic NzNiNGE3NmI2YTU3ZWQxMWE3NmUwMDE1NWQ0MjYxNGQ= `,
+      // Authorization: `Basic ${base64Token}`,
     };
 
     const res = await axios.get(`${config.api.baseURL}/myaccount/watches`, {
